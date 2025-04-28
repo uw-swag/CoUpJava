@@ -1,0 +1,81 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "codeupgrade"
+dynamic = ["version"]
+description = "script for repo search for dataset"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Kaihang Jiang", email = "k52jiang@uwaterloo.ca" },
+    { name = "Bihui Jin", email = "bihui.jin@uwaterloo.ca" },
+    { name = "Pengyu Nie", email = "pengyu.nie@uwaterloo.ca" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "seutil>=0.8.10",
+    "pydriller",
+    "beautifulsoup4",
+    "jsonargparse>=4.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "hatch",
+    "pytest>=6",
+    "pytest-cov",
+    "coverage[toml]",
+    "black",
+    "ruff",
+    "requests",
+]
+
+[project.urls]
+Issues = "https://github.com/uw-swag/CoUpJava/issues"
+Source = "https://github.com/uw-swag/CoUpJava"
+
+[tool.hatch.version]
+path = "src/codeupgrade/__about__.py"
+
+# testing (pytest) and coverage (coverage, pytest-cov)
+[tool.coverage.run]
+source_pkgs = ["codeupgrade", "tests"]
+branch = true
+parallel = true
+omit = ["src/codeupgrade/__about__.py"]
+
+[tool.coverage.paths]
+codeupgrade = ["src/codeupgrade", "*/python-template/src/codeupgrade"]
+tests = ["tests", "*/codeupgrade/tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.pytest.ini_options]
+addopts = "--ignore=deprecated --cov --cov-report xml:cov.xml"
+testpaths = ["tests"]
+
+# formatting (black)
+[tool.black]
+target-version = ["py38"]
+line-length = 120
+
+# linting (ruff)
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+select = [
+    "E", # pycodestyle error
+    "F", # pyflakes
+    "I", # isort
+]
+
+[tool.ruff.isort]
+known-first-party = ["codeupgrade"]
