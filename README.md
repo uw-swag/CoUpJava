@@ -9,7 +9,7 @@ This repository contains our dataset and the scripts for collecting the dataset.
 
 Note: the data files and some helper files required for running the scripts are too large to be uploaded to GitHub repository. They are available for download from [Zenodo][zenodo].
 
-## Index
+## Table of Contents
 
 - [Dataset](#dataset)
 - [Scripts](#scripts)
